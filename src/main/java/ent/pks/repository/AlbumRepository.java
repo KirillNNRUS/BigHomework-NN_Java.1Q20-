@@ -15,12 +15,10 @@ public class AlbumRepository implements AlbumDAO, ConnectionDB {
 
     @Override
     public void add(Album album) throws SQLException {
-
         try (
                 Connection con = getConnection();
                 PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.ALBUM_INSERT)
         ) {
-
             preparedStatement.setString(1, album.getAlbumName());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -83,7 +81,6 @@ public class AlbumRepository implements AlbumDAO, ConnectionDB {
                 Connection con = getConnection();
                 PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.ALBUM_BY_NAME)
         ) {
-
             preparedStatement.setString(1, albumName.toUpperCase());
             res = preparedStatement.executeQuery();
             while (res.next()) {
@@ -106,11 +103,30 @@ public class AlbumRepository implements AlbumDAO, ConnectionDB {
 
     @Override
     public void update(Album album) throws SQLException {
+        try (
+                Connection con = getConnection();
+                PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.ALBUM_UPDATE)
+        ) {
+            preparedStatement.setString(1, album.getAlbumName());
+            preparedStatement.setLong(2, album.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            err.println(e);
+        }
 
     }
 
     @Override
     public void remove(Album album) throws SQLException {
+        try (
+                Connection con = getConnection();
+                PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.ALBUM_DELETE)
+        ) {
+            preparedStatement.setLong(1, album.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            err.println(e);
+        }
 
     }
 }
