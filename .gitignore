@@ -1,6 +1,8 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### Java template
 # Compiled class file
+target/*
+./target/*
 *.class
 h2_db*
 
