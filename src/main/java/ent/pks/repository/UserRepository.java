@@ -45,11 +45,6 @@ public class UserRepository implements UserDAO, ConnectionDB {
     }
 
     @Override
-    public User getByName(String userName) throws SQLException {
-        return null;
-    }
-
-    @Override
     public void update(User user) throws SQLException {
 
     }

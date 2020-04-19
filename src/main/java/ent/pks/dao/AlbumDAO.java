@@ -12,8 +12,6 @@ public interface AlbumDAO {
 
     Album getById(Long id) throws SQLException;
 
-    Album getByName(String albumName) throws SQLException;
-
     void update(Album album) throws SQLException;
 
     void remove(Album album) throws SQLException;

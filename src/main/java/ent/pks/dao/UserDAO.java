@@ -12,8 +12,6 @@ public interface UserDAO {
 
     User getById(Long id) throws SQLException;
 
-    User getByName(String userName) throws SQLException;
-
     void update(User user) throws SQLException;
 
     void remove(User user) throws SQLException;

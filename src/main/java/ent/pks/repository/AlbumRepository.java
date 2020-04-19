@@ -19,7 +19,8 @@ public class AlbumRepository implements AlbumDAO, ConnectionDB {
                 Connection con = getConnection();
                 PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.ALBUM_INSERT)
         ) {
-            preparedStatement.setString(1, album.getAlbumName());
+            preparedStatement.setLong(1, album.getId());
+            preparedStatement.setString(2, album.getAlbumName());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             err.println(e);
@@ -74,34 +75,6 @@ public class AlbumRepository implements AlbumDAO, ConnectionDB {
     }
 
     @Override
-    public Album getByName(String albumName) throws SQLException {
-        Album album = new Album();
-        ResultSet res = null;
-        try (
-                Connection con = getConnection();
-                PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.ALBUM_BY_NAME)
-        ) {
-            preparedStatement.setString(1, albumName.toUpperCase());
-            res = preparedStatement.executeQuery();
-            while (res.next()) {
-                album.setId(res.getLong(1));
-                album.setAlbumName(res.getString(2));
-                /*
-                Берем первый, который нашли
-                 */
-                break;
-            }
-        } catch (SQLException e) {
-            err.println(e);
-        } finally {
-            if (res != null) {
-                res.close();
-            }
-        }
-        return album;
-    }
-
-    @Override
     public void update(Album album) throws SQLException {
         try (
                 Connection con = getConnection();
@@ -113,7 +86,6 @@ public class AlbumRepository implements AlbumDAO, ConnectionDB {
         } catch (SQLException e) {
             err.println(e);
         }
-
     }
 
     @Override
@@ -127,6 +99,5 @@ public class AlbumRepository implements AlbumDAO, ConnectionDB {
         } catch (SQLException e) {
             err.println(e);
         }
-
     }
 }
