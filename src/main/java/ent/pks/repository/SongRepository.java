@@ -20,7 +20,7 @@ public class SongRepository implements SongDAO, ConnectionDB {
                 PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.SONG_INSERT)
         ) {
             preparedStatement.setLong(1, song.getId());
-            preparedStatement.setString(2, song.getSongName());
+            preparedStatement.setString(2, song.getSongName().toUpperCase());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             err.println(e);
@@ -79,7 +79,7 @@ public class SongRepository implements SongDAO, ConnectionDB {
                 Connection con = getConnection();
                 PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.SONG_UPDATE)
         ) {
-            preparedStatement.setString(1, song.getSongName());
+            preparedStatement.setString(1, song.getSongName().toUpperCase());
             preparedStatement.setLong(2, song.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

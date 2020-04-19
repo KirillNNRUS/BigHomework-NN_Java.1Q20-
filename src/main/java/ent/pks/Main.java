@@ -15,13 +15,13 @@ public class Main {
         song.setSongName("s01");
         song.setId(1L);
         Song song2 = new Song();
-        song2.setSongName("SSS02");
+        song2.setSongName("SsS02");
         song2.setId(2L);
         Song song3 = new Song();
-        song3.setSongName("0003");
+        song3.setSongName("dgdfgdf0003");
         song3.setId(3L);
         Song song4 = new Song();
-        song4.setSongName("44444");
+        song4.setSongName("jkhkhj44444");
         song4.setId(4L);
 
         try {
@@ -33,12 +33,12 @@ public class Main {
             System.out.println("-----");
             song3 = new Song();
             song3.setId(3L);
-            song3.setSongName("0003");
+            song3.setSongName("dgdfgdf0003");
             songRepository.remove(song3);
             System.out.println(songRepository.getAll());
             song4 = new Song();
             song4.setId(4L);
-            song4.setSongName("4_4_4");
+            song4.setSongName("4_4_4kkkl");
             songRepository.update(song4);
             System.out.println(songRepository.getAll());
         } catch (SQLException e) {

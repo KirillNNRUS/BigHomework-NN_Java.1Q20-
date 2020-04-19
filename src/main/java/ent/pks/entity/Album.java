@@ -28,16 +28,16 @@ public class Album {
         return albumName;
     }
 
+    public void setAlbumName(String albumName) {
+        this.albumName = albumName.toUpperCase();
+    }
+
     @Override
     public String toString() {
         return "Album{" +
                 "id=" + id +
                 ", albumName='" + albumName + '\'' +
                 '}';
-    }
-
-    public void setAlbumName(String albumName) {
-        this.albumName = albumName.toUpperCase();
     }
 
     @Override

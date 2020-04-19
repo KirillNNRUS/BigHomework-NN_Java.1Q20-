@@ -3,54 +3,100 @@ package ent.pks.repository;
 import ent.pks.dao.UserDAO;
 import ent.pks.db.ConnectionDB;
 import ent.pks.entity.User;
+import ent.pks.util.SQLQuery;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.System.err;
+
 public class UserRepository implements UserDAO, ConnectionDB {
-    private final Connection CONNECTION = getConnection();
-    private final String USER_INSERT = "INSERT INTO USERS VALUES(?, ?)";
-    PreparedStatement preparedStatement = null;
 
     @Override
     public void add(User user) throws SQLException {
-        try {
-            preparedStatement = CONNECTION.prepareStatement(USER_INSERT);
-            preparedStatement.setString(1, user.getUserName());
+        try (
+                Connection con = getConnection();
+                PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.USER_INSERT)
+        ) {
+            preparedStatement.setString(1, user.getUserName().toUpperCase());
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-            if (CONNECTION != null) {
-                CONNECTION.close();
-            }
+            err.println(e);
         }
-
     }
 
     @Override
     public List<User> getAll() throws SQLException {
-        return null;
+        List<User> userList = new ArrayList<>();
+
+        try (
+                Connection con = getConnection();
+                Statement statement = con.createStatement();
+                ResultSet res = statement.executeQuery(SQLQuery.USER_LIST)
+        ) {
+            while (res.next()) {
+                User user = new User();
+                user.setUserName(res.getString(1));
+                user.setPassword(res.getString(2));
+
+                userList.add(user);
+            }
+        } catch (SQLException e) {
+            err.println(e);
+        }
+        return userList;
     }
 
     @Override
     public User getById(Long id) throws SQLException {
-        return null;
+        User user = new User();
+        ResultSet res = null;
+        try (
+                Connection con = getConnection();
+                PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.USER_BY_NAME)
+        ) {
+            preparedStatement.setLong(1, id);
+            res = preparedStatement.executeQuery();
+            while (res.next()) {
+                user.setUserName(res.getString(1));
+                user.setPassword(res.getString(2));
+            }
+        } catch (SQLException e) {
+            err.println(e);
+        } finally {
+            if (res != null) {
+                res.close();
+            }
+        }
+        return user;
     }
 
     @Override
     public void update(User user) throws SQLException {
-
+        try (
+                Connection con = getConnection();
+                PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.USER_UPDATE)
+        ) {
+            preparedStatement.setString(1, user.getPassword());
+            preparedStatement.setString(2, user.getUserName().toUpperCase());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            err.println(e);
+        }
     }
 
     @Override
     public void remove(User user) throws SQLException {
-
+        try (
+                Connection con = getConnection();
+                PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.USER_DELETE)
+        ) {
+            preparedStatement.setString(1, user.getUserName().toUpperCase());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            err.println(e);
+        }
     }
 }

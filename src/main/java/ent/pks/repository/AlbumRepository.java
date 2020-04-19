@@ -20,7 +20,7 @@ public class AlbumRepository implements AlbumDAO, ConnectionDB {
                 PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.ALBUM_INSERT)
         ) {
             preparedStatement.setLong(1, album.getId());
-            preparedStatement.setString(2, album.getAlbumName());
+            preparedStatement.setString(2, album.getAlbumName().toUpperCase());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             err.println(e);
@@ -80,7 +80,7 @@ public class AlbumRepository implements AlbumDAO, ConnectionDB {
                 Connection con = getConnection();
                 PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.ALBUM_UPDATE)
         ) {
-            preparedStatement.setString(1, album.getAlbumName());
+            preparedStatement.setString(1, album.getAlbumName().toUpperCase());
             preparedStatement.setLong(2, album.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
