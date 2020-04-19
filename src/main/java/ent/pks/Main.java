@@ -1,13 +1,12 @@
 package ent.pks;
 
 import ent.pks.entity.Album;
-import ent.pks.entity.User;
 import ent.pks.repository.AlbumRepository;
 import ent.pks.repository.UserRepository;
 
 import java.sql.SQLException;
 
-import static java.lang.System.*;
+import static java.lang.System.err;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,14 +16,18 @@ public class Main {
         Album album = new Album();
         album.setAlbumName("First");
 
-        User user = new User();
-        user.setUserName("usr1");
-        user.setPassword("user1PaS$");
+
         try {
             albumRepository.add(album);
-            userRepository.add(user);
+
         } catch (SQLException e) {
             err.println(e);
+        }
+
+        try {
+            System.out.println(albumRepository.getByName("First"));
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }
