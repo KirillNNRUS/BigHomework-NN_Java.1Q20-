@@ -1,4 +1,4 @@
-package ent.pks;
+package ent.pks.jdbc;
 
 import ent.pks.db.ConnectionJDBC;
 

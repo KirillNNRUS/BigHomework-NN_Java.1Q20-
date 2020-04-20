@@ -1,7 +1,7 @@
 package ent.pks;
 
 import ent.pks.entity.Song;
-import ent.pks.repository.SongRepository;
+import ent.pks.repository.hibernate.SongRepository;
 
 import java.sql.SQLException;
 
