@@ -2,7 +2,6 @@ package ent.pks.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "SONGS")
@@ -19,8 +18,8 @@ public class Song {
     private String songName;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn()
-    private Set<Album> albums;
+    @JoinColumn(name = "ALBUM_ID")
+    private Album album;
 
     public long getId() {
         return id;
@@ -38,11 +37,20 @@ public class Song {
         this.songName = songName.toUpperCase();
     }
 
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
     @Override
     public String toString() {
         return "Song{" +
                 "id=" + id +
                 ", songName='" + songName + '\'' +
+                ", album=" + album +
                 '}';
     }
 
@@ -51,12 +59,13 @@ public class Song {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Song song = (Song) o;
-        return Objects.equals(id, song.id) &&
-                songName.equals(song.songName);
+        return id == song.id &&
+                songName.equals(song.songName) &&
+                Objects.equals(album, song.album);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, songName);
+        return Objects.hash(id, songName, album);
     }
 }

@@ -2,6 +2,7 @@ package ent.pks.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "ALBUMS")
@@ -16,6 +17,17 @@ public class Album {
 
     @Column(name = "ALBUM_NAME", nullable = false)
     private String albumName;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Song> songs;
+
+    public Set<Song> getSongs() {
+        return songs;
+    }
+
+    public void setSongs(Set<Song> songs) {
+        this.songs = songs;
+    }
 
     public long getId() {
         return id;
@@ -46,12 +58,13 @@ public class Album {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Album album = (Album) o;
-        return Objects.equals(id, album.id) &&
-                albumName.equals(album.albumName);
+        return id == album.id &&
+                albumName.equals(album.albumName) &&
+                songs.equals(album.songs);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, albumName);
+        return Objects.hash(id, albumName, songs);
     }
 }
