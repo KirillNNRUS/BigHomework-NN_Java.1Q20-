@@ -1,9 +1,9 @@
 package ent.pks.repository;
 
 import ent.pks.dao.UserDAO;
-import ent.pks.db.ConnectionDB;
+import ent.pks.db.ConnectionJDBC;
 import ent.pks.entity.User;
-import ent.pks.util.SQLQuery;
+import ent.pks.util.SQLQueryJDBC;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,13 +11,13 @@ import java.util.List;
 
 import static java.lang.System.err;
 
-public class UserRepository implements UserDAO, ConnectionDB {
+public class UserRepository implements UserDAO, ConnectionJDBC {
 
     @Override
     public void add(User user) throws SQLException {
         try (
                 Connection con = getConnection();
-                PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.USER_INSERT)
+                PreparedStatement preparedStatement = con.prepareStatement(SQLQueryJDBC.USER_INSERT)
         ) {
             preparedStatement.setString(1, user.getUserName().toUpperCase());
             preparedStatement.setString(2, user.getPassword());
@@ -34,7 +34,7 @@ public class UserRepository implements UserDAO, ConnectionDB {
         try (
                 Connection con = getConnection();
                 Statement statement = con.createStatement();
-                ResultSet res = statement.executeQuery(SQLQuery.USER_LIST)
+                ResultSet res = statement.executeQuery(SQLQueryJDBC.USER_LIST)
         ) {
             while (res.next()) {
                 User user = new User();
@@ -55,7 +55,7 @@ public class UserRepository implements UserDAO, ConnectionDB {
         ResultSet res = null;
         try (
                 Connection con = getConnection();
-                PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.USER_BY_NAME)
+                PreparedStatement preparedStatement = con.prepareStatement(SQLQueryJDBC.USER_BY_NAME)
         ) {
             preparedStatement.setLong(1, id);
             res = preparedStatement.executeQuery();
@@ -77,7 +77,7 @@ public class UserRepository implements UserDAO, ConnectionDB {
     public void update(User user) throws SQLException {
         try (
                 Connection con = getConnection();
-                PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.USER_UPDATE)
+                PreparedStatement preparedStatement = con.prepareStatement(SQLQueryJDBC.USER_UPDATE)
         ) {
             preparedStatement.setString(1, user.getPassword());
             preparedStatement.setString(2, user.getUserName().toUpperCase());
@@ -91,7 +91,7 @@ public class UserRepository implements UserDAO, ConnectionDB {
     public void remove(User user) throws SQLException {
         try (
                 Connection con = getConnection();
-                PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.USER_DELETE)
+                PreparedStatement preparedStatement = con.prepareStatement(SQLQueryJDBC.USER_DELETE)
         ) {
             preparedStatement.setString(1, user.getUserName().toUpperCase());
             preparedStatement.executeUpdate();

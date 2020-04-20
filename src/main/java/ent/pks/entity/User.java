@@ -9,8 +9,11 @@ import java.util.Objects;
 @Entity
 @Table(name = "USERS")
 public class User {
+    public User() {
+    }
+
     @Id
-    @Column(name = "USER_NAME", nullable = false)
+    @Column(name = "USER_NAME", nullable = false, unique = true)
     private String userName;
 
     @Column(name = "USER_PASSWORD", nullable = false)

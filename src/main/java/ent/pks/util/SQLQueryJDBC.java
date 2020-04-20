@@ -1,6 +1,6 @@
 package ent.pks.util;
 
-public class SQLQuery {
+public class SQLQueryJDBC {
     //ALBUMS
     public static final String ALBUM_INSERT = "INSERT INTO ALBUMS VALUES(?, ?)";
     public static final String ALBUM_LIST = "SELECT * FROM ALBUMS";

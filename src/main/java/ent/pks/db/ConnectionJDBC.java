@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import static java.lang.System.out;
 
-public interface ConnectionDB {
+public interface ConnectionJDBC {
     String DB_DRIVER = "org.h2.Driver";
     String DB_URL = "jdbc:h2:./musicStore";
     String DB_USERNAME = "ss";
