@@ -2,16 +2,25 @@ package ent.pks.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "SONGS")
 public class Song {
+    public Song() {
+    }
+
     @Id
+    @Column(name = "SONG_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "SONG_NAME", nullable = false)
     private String songName;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn()
+    private Set<Album> albums;
 
     public long getId() {
         return id;

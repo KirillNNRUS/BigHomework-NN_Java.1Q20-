@@ -5,7 +5,7 @@ import ent.pks.repository.SongRepository;
 
 import java.sql.SQLException;
 
-public class Main {
+public class MainJDBC {
     public static void main(String[] args) {
 
 

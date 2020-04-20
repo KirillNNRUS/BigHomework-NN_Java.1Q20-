@@ -1,9 +1,9 @@
 package ent.pks.repository;
 
 import ent.pks.dao.AlbumDAO;
-import ent.pks.db.ConnectionDB;
+import ent.pks.db.ConnectionJDBC;
 import ent.pks.entity.Album;
-import ent.pks.util.SQLQuery;
+import ent.pks.util.SQLQueryJDBC;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,13 +11,13 @@ import java.util.List;
 
 import static java.lang.System.err;
 
-public class AlbumRepository implements AlbumDAO, ConnectionDB {
+public class AlbumRepository implements AlbumDAO, ConnectionJDBC {
 
     @Override
     public void add(Album album) throws SQLException {
         try (
                 Connection con = getConnection();
-                PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.ALBUM_INSERT)
+                PreparedStatement preparedStatement = con.prepareStatement(SQLQueryJDBC.ALBUM_INSERT)
         ) {
             preparedStatement.setLong(1, album.getId());
             preparedStatement.setString(2, album.getAlbumName().toUpperCase());
@@ -34,7 +34,7 @@ public class AlbumRepository implements AlbumDAO, ConnectionDB {
         try (
                 Connection con = getConnection();
                 Statement statement = con.createStatement();
-                ResultSet res = statement.executeQuery(SQLQuery.ALBUM_LIST)
+                ResultSet res = statement.executeQuery(SQLQueryJDBC.ALBUM_LIST)
         ) {
             while (res.next()) {
                 Album album = new Album();
@@ -56,7 +56,7 @@ public class AlbumRepository implements AlbumDAO, ConnectionDB {
         ResultSet res = null;
         try (
                 Connection con = getConnection();
-                PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.ALBUM_BY_ID)
+                PreparedStatement preparedStatement = con.prepareStatement(SQLQueryJDBC.ALBUM_BY_ID)
         ) {
             preparedStatement.setLong(1, id);
             res = preparedStatement.executeQuery();
@@ -78,7 +78,7 @@ public class AlbumRepository implements AlbumDAO, ConnectionDB {
     public void update(Album album) throws SQLException {
         try (
                 Connection con = getConnection();
-                PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.ALBUM_UPDATE)
+                PreparedStatement preparedStatement = con.prepareStatement(SQLQueryJDBC.ALBUM_UPDATE)
         ) {
             preparedStatement.setString(1, album.getAlbumName().toUpperCase());
             preparedStatement.setLong(2, album.getId());
@@ -92,7 +92,7 @@ public class AlbumRepository implements AlbumDAO, ConnectionDB {
     public void remove(Album album) throws SQLException {
         try (
                 Connection con = getConnection();
-                PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.ALBUM_DELETE)
+                PreparedStatement preparedStatement = con.prepareStatement(SQLQueryJDBC.ALBUM_DELETE)
         ) {
             preparedStatement.setLong(1, album.getId());
             preparedStatement.executeUpdate();

@@ -1,6 +1,6 @@
 package ent.pks;
 
-import ent.pks.db.ConnectionDB;
+import ent.pks.db.ConnectionJDBC;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -32,7 +32,7 @@ public class CreateDB {
         }
     }
 
-    static class DBH2 implements ConnectionDB {
+    static class DBH2 implements ConnectionJDBC {
         Connection connection = getConnection();
         Statement statement = null;
 

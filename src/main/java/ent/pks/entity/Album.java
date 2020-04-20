@@ -1,16 +1,17 @@
 package ent.pks.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "ALBUMS")
 public class Album {
+    public Album() {
+    }
+
     @Id
     @Column(name = "ALBUM_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "ALBUM_NAME", nullable = false)

@@ -1,9 +1,9 @@
 package ent.pks.repository;
 
 import ent.pks.dao.SongDAO;
-import ent.pks.db.ConnectionDB;
+import ent.pks.db.ConnectionJDBC;
 import ent.pks.entity.Song;
-import ent.pks.util.SQLQuery;
+import ent.pks.util.SQLQueryJDBC;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,13 +11,13 @@ import java.util.List;
 
 import static java.lang.System.err;
 
-public class SongRepository implements SongDAO, ConnectionDB {
+public class SongRepository implements SongDAO, ConnectionJDBC {
 
     @Override
     public void add(Song song) throws SQLException {
         try (
                 Connection con = getConnection();
-                PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.SONG_INSERT)
+                PreparedStatement preparedStatement = con.prepareStatement(SQLQueryJDBC.SONG_INSERT)
         ) {
             preparedStatement.setLong(1, song.getId());
             preparedStatement.setString(2, song.getSongName().toUpperCase());
@@ -34,7 +34,7 @@ public class SongRepository implements SongDAO, ConnectionDB {
         try (
                 Connection con = getConnection();
                 Statement statement = con.createStatement();
-                ResultSet res = statement.executeQuery(SQLQuery.SONG_LIST)
+                ResultSet res = statement.executeQuery(SQLQueryJDBC.SONG_LIST)
         ) {
             while (res.next()) {
                 Song song = new Song();
@@ -55,7 +55,7 @@ public class SongRepository implements SongDAO, ConnectionDB {
         ResultSet res = null;
         try (
                 Connection con = getConnection();
-                PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.SONG_BY_ID)
+                PreparedStatement preparedStatement = con.prepareStatement(SQLQueryJDBC.SONG_BY_ID)
         ) {
             preparedStatement.setLong(1, id);
             res = preparedStatement.executeQuery();
@@ -77,7 +77,7 @@ public class SongRepository implements SongDAO, ConnectionDB {
     public void update(Song song) throws SQLException {
         try (
                 Connection con = getConnection();
-                PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.SONG_UPDATE)
+                PreparedStatement preparedStatement = con.prepareStatement(SQLQueryJDBC.SONG_UPDATE)
         ) {
             preparedStatement.setString(1, song.getSongName().toUpperCase());
             preparedStatement.setLong(2, song.getId());
@@ -91,7 +91,7 @@ public class SongRepository implements SongDAO, ConnectionDB {
     public void remove(Song song) throws SQLException {
         try (
                 Connection con = getConnection();
-                PreparedStatement preparedStatement = con.prepareStatement(SQLQuery.SONG_DELETE)
+                PreparedStatement preparedStatement = con.prepareStatement(SQLQueryJDBC.SONG_DELETE)
         ) {
             preparedStatement.setLong(1, song.getId());
             preparedStatement.executeUpdate();
