@@ -17,10 +17,6 @@ public class Song {
     @Column(name = "SONG_NAME", nullable = false)
     private String songName;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ALBUM_ID")
-    private Album album;
-
     public long getId() {
         return id;
     }
@@ -37,20 +33,11 @@ public class Song {
         this.songName = songName.toUpperCase();
     }
 
-    public Album getAlbum() {
-        return album;
-    }
-
-    public void setAlbum(Album album) {
-        this.album = album;
-    }
-
     @Override
     public String toString() {
         return "Song{" +
                 "id=" + id +
                 ", songName='" + songName + '\'' +
-                ", album=" + album +
                 '}';
     }
 
@@ -60,12 +47,11 @@ public class Song {
         if (o == null || getClass() != o.getClass()) return false;
         Song song = (Song) o;
         return id == song.id &&
-                songName.equals(song.songName) &&
-                Objects.equals(album, song.album);
+                songName.equals(song.songName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, songName, album);
+        return Objects.hash(id, songName);
     }
 }
