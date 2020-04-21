@@ -1,4 +1,4 @@
-package ent.pks.repository.jdbc;
+package ent.pks.repository.hibernate;
 
 import ent.pks.dao.UserDAO;
 import ent.pks.db.ConnectionJDBC;

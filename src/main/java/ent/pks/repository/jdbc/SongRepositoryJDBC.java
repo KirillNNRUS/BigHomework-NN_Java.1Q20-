@@ -11,7 +11,7 @@ import java.util.List;
 
 import static java.lang.System.err;
 
-public class SongRepository implements SongDAO, ConnectionJDBC {
+public class SongRepositoryJDBC implements SongDAO, ConnectionJDBC {
 
     @Override
     public void add(Song song) throws SQLException {

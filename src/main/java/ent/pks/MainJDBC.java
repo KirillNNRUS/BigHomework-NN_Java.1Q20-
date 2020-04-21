@@ -1,7 +1,7 @@
 package ent.pks;
 
 import ent.pks.entity.Song;
-import ent.pks.repository.jdbc.SongRepository;
+import ent.pks.repository.jdbc.SongRepositoryJDBC;
 
 import java.sql.SQLException;
 
@@ -9,7 +9,7 @@ public class MainJDBC {
     public static void main(String[] args) {
 
 
-        SongRepository songRepository = new SongRepository();
+        SongRepositoryJDBC songRepository = new SongRepositoryJDBC();
 
         Song song = new Song();
         song.setSongName("s01");

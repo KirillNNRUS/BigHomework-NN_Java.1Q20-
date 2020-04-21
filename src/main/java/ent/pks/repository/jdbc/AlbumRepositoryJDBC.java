@@ -11,7 +11,7 @@ import java.util.List;
 
 import static java.lang.System.err;
 
-public class AlbumRepository implements AlbumDAO, ConnectionJDBC {
+public class AlbumRepositoryJDBC implements AlbumDAO, ConnectionJDBC {
 
     @Override
     public void add(Album album) throws SQLException {
