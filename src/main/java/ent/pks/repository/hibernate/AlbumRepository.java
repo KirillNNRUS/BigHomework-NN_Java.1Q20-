@@ -1,10 +1,11 @@
 package ent.pks.repository.hibernate;
 
 import ent.pks.dao.AlbumDAO;
-import ent.pks.db.ConnectionHibernate;
 import ent.pks.entity.Album;
-import org.hibernate.Session;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -13,12 +14,13 @@ import static java.lang.System.err;
 public class AlbumRepository implements AlbumDAO {
     @Override
     public void add(Album album) {
-        try (
-                Session session = ConnectionHibernate.getSessionFactory().openSession()
-        ) {
-            session.getTransaction().begin();
-            session.save(album);
-            session.getTransaction().commit();
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("musicStore");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try  {
+            entityManager.getTransaction().begin();
+            entityManager.persist(album);
+            entityManager.flush();
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
             err.println(e);
 
@@ -33,6 +35,11 @@ public class AlbumRepository implements AlbumDAO {
     @Override
     public Album getById(Long id) throws SQLException {
         return null;
+    }
+
+    @Override
+    public long albumIDInDB(String name) throws SQLException {
+        return 0;
     }
 
     @Override

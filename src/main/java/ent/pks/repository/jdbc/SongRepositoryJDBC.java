@@ -74,6 +74,11 @@ public class SongRepositoryJDBC implements SongDAO, ConnectionJDBC {
     }
 
     @Override
+    public long songIDInDB(String name) throws SQLException {
+        return 0;
+    }
+
+    @Override
     public void update(Song song) throws SQLException {
         try (
                 Connection con = getConnection();

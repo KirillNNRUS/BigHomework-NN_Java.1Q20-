@@ -50,27 +50,8 @@ public class UserRepository implements UserDAO, ConnectionJDBC {
     }
 
     @Override
-    public User getById(Long id) throws SQLException {
-        User user = new User();
-        ResultSet res = null;
-        try (
-                Connection con = getConnection();
-                PreparedStatement preparedStatement = con.prepareStatement(SQLQueryJDBC.USER_BY_NAME)
-        ) {
-            preparedStatement.setLong(1, id);
-            res = preparedStatement.executeQuery();
-            while (res.next()) {
-                user.setUserName(res.getString(1));
-                user.setPassword(res.getString(2));
-            }
-        } catch (SQLException e) {
-            err.println(e);
-        } finally {
-            if (res != null) {
-                res.close();
-            }
-        }
-        return user;
+    public User getByUserName(Long id) throws SQLException {
+        return null;
     }
 
     @Override

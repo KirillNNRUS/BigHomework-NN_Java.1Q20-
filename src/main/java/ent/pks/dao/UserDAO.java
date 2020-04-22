@@ -10,7 +10,7 @@ public interface UserDAO {
 
     List<User> getAll() throws SQLException;
 
-    User getById(Long id) throws SQLException;
+    User getByUserName(Long id) throws SQLException;
 
     void update(User user) throws SQLException;
 

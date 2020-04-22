@@ -15,7 +15,7 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "ALBUM_NAME", nullable = false)
+    @Column(name = "ALBUM_NAME", nullable = false, unique = true)
     private String albumName;
 
     @OneToMany(cascade = CascadeType.ALL)

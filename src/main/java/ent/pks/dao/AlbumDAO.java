@@ -6,11 +6,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface AlbumDAO {
-    void add(Album album) throws SQLException;
+    void add(Album album) throws Exception;
 
-    List<Album> getAll() throws SQLException;
+    List<Album> getAll() throws Exception;
 
-    Album getById(Long id) throws SQLException;
+    Album getById(Long id) throws Exception;
+
+    long albumIDInDB(String name) throws Exception;
 
     void update(Album album) throws SQLException;
 

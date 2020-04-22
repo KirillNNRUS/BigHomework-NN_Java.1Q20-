@@ -75,6 +75,11 @@ public class AlbumRepositoryJDBC implements AlbumDAO, ConnectionJDBC {
     }
 
     @Override
+    public long albumIDInDB(String name) throws Exception {
+        return 0;
+    }
+
+    @Override
     public void update(Album album) throws SQLException {
         try (
                 Connection con = getConnection();

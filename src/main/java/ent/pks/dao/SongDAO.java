@@ -12,6 +12,8 @@ public interface SongDAO {
 
     Song getById(Long id) throws SQLException;
 
+    long songIDInDB(String name) throws SQLException;
+
     void update(Song song) throws SQLException;
 
     void remove(Song song) throws SQLException;
