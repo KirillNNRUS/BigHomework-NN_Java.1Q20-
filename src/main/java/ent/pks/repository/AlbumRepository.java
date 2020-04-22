@@ -3,16 +3,25 @@ package ent.pks.repository;
 import ent.pks.dao.AlbumDAO;
 import ent.pks.entity.Album;
 
-import java.sql.SQLException;
+import javax.persistence.EntityManager;
 import java.util.List;
 
 public class AlbumRepository implements AlbumDAO {
-    @Override
-    public void add(Album album) {
+    private EntityManager entityManager;
+
+    public AlbumRepository(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
     @Override
-    public List<Album> getAll()  {
+    public void add(Album album) {
+        entityManager.getTransaction().begin();
+        entityManager.merge(album);
+        entityManager.getTransaction().commit();
+    }
+
+    @Override
+    public List<Album> getAll() {
         return null;
     }
 
@@ -22,15 +31,15 @@ public class AlbumRepository implements AlbumDAO {
     }
 
     @Override
-    public long getIdByName(String name)  {
+    public long getIdByName(String name) {
         return 0;
     }
 
     @Override
-    public void update(Album album, String newAlbumName)  {
+    public void update(Album album, String newAlbumName) {
     }
 
     @Override
-    public void remove(Album album)  {
+    public void remove(Album album) {
     }
 }

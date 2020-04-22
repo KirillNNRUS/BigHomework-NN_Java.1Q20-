@@ -5,7 +5,12 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "ALBUMS")
+@Table()
+@NamedQueries({
+        @NamedQuery(name = "Album.All", query = "SELECT a FROM Album a "),
+        @NamedQuery(name = "Album.getById", query = "SELECT a FROM Album a WHERE a.id = :id"),
+        @NamedQuery(name = "Album.getIdByName", query = "SELECT a FROM Album a WHERE a.albumName = :name"),
+})
 public class Album {
     public Album() {
     }
