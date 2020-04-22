@@ -16,16 +16,6 @@ public class SongRepository implements SongDAO {
     @Override
     public void add(Song song) {
         entityManager.getTransaction().begin();
-        /*
-        Может я балбес, и не умею искать информацию в интернете, но...
-        на всех найденных мною примерах было...
-        entityManager.getTransaction().begin();
-        entityManager.persist(book);
-        entityManager.getTransaction().commit();
-        И, в БД ничего, именно НИЧЕГО не записывалось...
-        потратил на поиски два дня..., где то на stackoverflow.com нашел...
-        Нужно закомитить... и думаю удалить наконец JDBC
-         */
         entityManager.merge(song);
         entityManager.getTransaction().commit();
     }
@@ -37,8 +27,7 @@ public class SongRepository implements SongDAO {
 
     @Override
     public Song getById(Long id) {
-        Song song = entityManager.find(Song.class, id);
-        return song;
+        return null;
     }
 
     @Override
@@ -48,7 +37,6 @@ public class SongRepository implements SongDAO {
 
     @Override
     public void update(Song song) {
-
     }
 
     @Override

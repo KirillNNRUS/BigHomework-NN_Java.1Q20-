@@ -14,17 +14,6 @@ import static java.lang.System.err;
 public class AlbumRepository implements AlbumDAO {
     @Override
     public void add(Album album) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("musicStore");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        try  {
-            entityManager.getTransaction().begin();
-            entityManager.persist(album);
-            entityManager.flush();
-            entityManager.getTransaction().commit();
-        } catch (Exception e) {
-            err.println(e);
-
-        }
     }
 
     @Override
