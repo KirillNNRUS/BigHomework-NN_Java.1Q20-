@@ -2,19 +2,18 @@ package ent.pks.dao;
 
 import ent.pks.entity.Song;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface SongDAO {
-    void add(Song song) throws SQLException;
+    void add(Song song);
 
-    List<Song> getAll() throws SQLException;
+    List<Song> getAll();
 
-    Song getById(Long id) throws SQLException;
+    Song getById(Long id);
 
-    long songIDInDB(String name) throws SQLException;
+    long getIdByName(String name);
 
-    void update(Song song) throws SQLException;
+    void update(Song song, String newSongName);
 
-    void remove(Song song) throws SQLException;
+    void remove(Song song);
 }

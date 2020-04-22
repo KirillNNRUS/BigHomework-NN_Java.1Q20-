@@ -2,17 +2,16 @@ package ent.pks.dao;
 
 import ent.pks.entity.User;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface UserDAO {
-    void add(User user) throws SQLException;
+    void add(User user);
 
-    List<User> getAll() throws SQLException;
+    List<User> getAll();
 
-    User getByUserName(Long id) throws SQLException;
+    User getByUserName(Long id);
 
-    void update(User user) throws SQLException;
+    void update(User user, String newUserPassword);
 
-    void remove(User user) throws SQLException;
+    void remove(User user);
 }

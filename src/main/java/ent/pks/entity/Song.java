@@ -4,17 +4,23 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "SONGS")
+@Table()
+@NamedQueries({
+        @NamedQuery(name = "Song.All", query = "SELECT s FROM Song s "),
+        @NamedQuery(name = "Song.getById", query = "SELECT s FROM Song s WHERE s.id = :id"),
+        @NamedQuery(name = "Song.getIdByName", query = "SELECT s FROM Song s WHERE s.songName = :name"),
+})
 public class Song {
+
     public Song() {
     }
 
     @Id
-    @Column(name = "SONG_ID")
+    @Column()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "SONG_NAME", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String songName;
 
     public long getId() {

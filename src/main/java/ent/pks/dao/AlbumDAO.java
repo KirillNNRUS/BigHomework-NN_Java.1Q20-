@@ -2,19 +2,18 @@ package ent.pks.dao;
 
 import ent.pks.entity.Album;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface AlbumDAO {
-    void add(Album album) throws Exception;
+    void add(Album album);
 
-    List<Album> getAll() throws Exception;
+    List<Album> getAll();
 
-    Album getById(Long id) throws Exception;
+    Album getById(Long id);
 
-    long albumIDInDB(String name) throws Exception;
+    long getIdByName(String name);
 
-    void update(Album album) throws SQLException;
+    void update(Album album, String newAlbumName);
 
-    void remove(Album album) throws SQLException;
+    void remove(Album album);
 }

@@ -1,7 +1,7 @@
 package ent.pks;
 
 import ent.pks.entity.Song;
-import ent.pks.repository.hibernate.SongRepository;
+import ent.pks.repository.SongRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,14 +14,26 @@ public class Main {
 
         SongRepository songRepository = new SongRepository(entityManager);
         Song song = new Song();
-        song.setId(20L);
         song.setSongName("Все это Рок-н-ролл");
+        songRepository.add(song);
 
-        Song song1 = new Song();
-        song1.setSongName("Бобо");
+        song = new Song();
+        song.setSongName("Шабаш");
 
         songRepository.add(song);
-        songRepository.add(song1);
 
+        System.out.println(songRepository.getAll());
+
+        //remove
+        long songId = songRepository.getIdByName("ШаБаШ");
+        song = songRepository.getById(songId);
+        songRepository.remove(song);
+        System.out.println(songRepository.getAll());
+
+        //update
+        songId = songRepository.getIdByName("Все это Рок-Н-РОЛл");
+        song = songRepository.getById(songId);
+        songRepository.update(song, "All it's Rock-N-Roll");
+        System.out.println(songRepository.getAll());
     }
 }

@@ -1,4 +1,4 @@
-package ent.pks.repository.hibernate;
+package ent.pks.repository;
 
 import ent.pks.dao.UserDAO;
 import ent.pks.entity.User;
@@ -24,7 +24,7 @@ public class UserRepository implements UserDAO {
     }
 
     @Override
-    public void update(User user) {
+    public void update(User user, String newPassword) {
     }
 
     @Override
