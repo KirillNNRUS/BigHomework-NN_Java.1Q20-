@@ -34,7 +34,38 @@ public class Main {
         updateSong("Все это Рок-Н-РОЛл", "All it's Rock-N-Roll");
         printAllSongs();
 
-        addAlbum("Группа крови - Кино", new Song("Группа Крови"));
+        addAlbum("Группа крови - Кино", new Song("Группа Крови - 1988"));
+        printAllSongs();
+        addAlbum("Шабаш - Алиса",
+                new Song("Шабаш"),
+                new Song("                 Жар Бог Шуга "),
+                new Song("Бес Паники"),
+                new Song("Лодка"),
+                new Song("Мое Поколение"),
+                new Song("Ко Мне"),
+                new Song("Стерх"),
+                new Song("Ветер Водит Хоровод"),
+                new Song("Чую Гибель"),
+                new Song("Красное На Черном"),
+                new Song("Все Это Рок-Н-Ролл"),
+                new Song("Сумерки"),
+                new Song("Шабаш II"),
+                new Song("Новая Кровь"),
+                new Song("Все В Наших руках")
+        );
+        printAllSongs();
+
+        addAlbum("Кино - Последний герой",
+                new Song("Хочу перемен! "),
+                new Song("Электричка"),
+                new Song("Война"),
+                new Song("Троллейбус"),
+                new Song("              Последний герой"),
+                new Song("Группа крови"),
+                new Song("Мама, мы все тяжело больны"),
+                new Song("В наших глазах"),
+                new Song("Спокойная ночь ")
+        );
         printAllSongs();
     }
 

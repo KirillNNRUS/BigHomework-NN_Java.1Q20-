@@ -35,7 +35,7 @@ public class AlbumRepository implements AlbumDAO {
     @Override
     public long getIdByName(String name) {
         return entityManager.createNamedQuery("Album.getIdByName", Album.class)
-                .setParameter("name", name.toUpperCase())
+                .setParameter("name", name.trim().toUpperCase())
                 .getSingleResult().getId();
     }
 

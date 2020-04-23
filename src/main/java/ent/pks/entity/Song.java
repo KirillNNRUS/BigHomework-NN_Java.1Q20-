@@ -15,7 +15,7 @@ public class Song {
     }
 
     public Song(String songName) {
-        this.songName = songName.toUpperCase();
+        this.songName = songName.trim().toUpperCase();
     }
 
     @Id
@@ -39,7 +39,7 @@ public class Song {
     }
 
     public void setSongName(String songName) {
-        this.songName = songName.toUpperCase();
+        this.songName = songName.trim().toUpperCase();
     }
 
     @Override

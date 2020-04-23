@@ -35,7 +35,7 @@ public class SongRepository implements SongDAO {
     @Override
     public long getIdByName(String name) {
         return entityManager.createNamedQuery("Song.getIdByName", Song.class)
-                .setParameter("name", name.toUpperCase())
+                .setParameter("name", name.trim().toUpperCase())
                 .getSingleResult().getId();
     }
 

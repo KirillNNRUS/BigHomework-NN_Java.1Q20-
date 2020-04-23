@@ -16,7 +16,7 @@ public class Album {
     }
 
     public Album(String albumName) {
-        this.albumName = albumName.toUpperCase();
+        this.albumName = albumName.trim().toUpperCase();
     }
 
     @Id
@@ -51,7 +51,7 @@ public class Album {
     }
 
     public void setAlbumName(String albumName) {
-        this.albumName = albumName.toUpperCase();
+        this.albumName = albumName.trim().toUpperCase();
     }
 
     @Override
