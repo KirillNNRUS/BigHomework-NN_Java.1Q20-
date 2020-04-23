@@ -16,7 +16,7 @@ public class SongRepository implements SongDAO {
     @Override
     public void add(Song song) {
         entityManager.getTransaction().begin();
-        entityManager.merge(song);
+        entityManager.persist(song);
         entityManager.getTransaction().commit();
     }
 
@@ -48,7 +48,7 @@ public class SongRepository implements SongDAO {
     public void update(Song song, String newSongName) {
         entityManager.getTransaction().begin();
         song.setSongName(newSongName);
-        entityManager.merge(song);
+        entityManager.persist(song);
         entityManager.getTransaction().commit();
     }
 

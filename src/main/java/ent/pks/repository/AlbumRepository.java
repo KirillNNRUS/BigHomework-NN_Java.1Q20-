@@ -16,7 +16,7 @@ public class AlbumRepository implements AlbumDAO {
     @Override
     public void add(Album album) {
         entityManager.getTransaction().begin();
-        entityManager.merge(album);
+        entityManager.persist(album);
         entityManager.getTransaction().commit();
     }
 
@@ -43,7 +43,7 @@ public class AlbumRepository implements AlbumDAO {
     public void update(Album album, String newAlbumName) {
         entityManager.getTransaction().begin();
         album.setAlbumName(newAlbumName);
-        entityManager.merge(album);
+        entityManager.persist(album);
         entityManager.getTransaction().commit();
     }
 
