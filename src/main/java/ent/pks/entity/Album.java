@@ -27,17 +27,6 @@ public class Album {
     @Column(nullable = false, unique = true)
     private String albumName;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Song> songs;
-
-    public Set<Song> getSongs() {
-        return songs;
-    }
-
-    public void setSongs(Set<Song> songs) {
-        this.songs = songs;
-    }
-
     public long getId() {
         return id;
     }
@@ -68,12 +57,11 @@ public class Album {
         if (o == null || getClass() != o.getClass()) return false;
         Album album = (Album) o;
         return id == album.id &&
-                albumName.equals(album.albumName) &&
-                songs.equals(album.songs);
+                albumName.equals(album.albumName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, albumName, songs);
+        return Objects.hash(id, albumName);
     }
 }

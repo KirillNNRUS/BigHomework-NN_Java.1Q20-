@@ -26,6 +26,17 @@ public class Song {
     @Column(nullable = false, unique = true)
     private String songName;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Album album;
+
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
     public long getId() {
         return id;
     }
@@ -47,6 +58,7 @@ public class Song {
         return "Song{" +
                 "id=" + id +
                 ", songName='" + songName + '\'' +
+                ", album=" + album +
                 '}';
     }
 
@@ -56,11 +68,12 @@ public class Song {
         if (o == null || getClass() != o.getClass()) return false;
         Song song = (Song) o;
         return id == song.id &&
-                songName.equals(song.songName);
+                songName.equals(song.songName) &&
+                Objects.equals(album, song.album);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, songName);
+        return Objects.hash(id, songName, album);
     }
 }
