@@ -27,7 +27,7 @@ public class Album {
     @Column(nullable = false, unique = true)
     private String albumName;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Song> songs;
 
     public Set<Song> getSongs() {

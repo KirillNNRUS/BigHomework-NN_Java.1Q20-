@@ -85,6 +85,8 @@ public class Main {
                 new Song("Спокойная ночь ")
         );
         printAlbumNames();
+        System.out.println("!!!!!");
+        removeSong("МАМА, МЫ ВСЕ ТЯЖЕЛО БОЛЬНЫ");
     }
 
     static void removeAlbum(String albumName) {
