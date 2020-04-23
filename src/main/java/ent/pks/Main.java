@@ -8,45 +8,67 @@ import ent.pks.repository.SongRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Main {
+    static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("musicStore");
+    static EntityManager entityManager = entityManagerFactory.createEntityManager();
+    static SongRepository songRepository = new SongRepository(entityManager);
+    static AlbumRepository albumRepository = new AlbumRepository(entityManager);
+
     public static void main(String[] args) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("musicStore");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Song song;
+        Album album;
 
-        SongRepository songRepository = new SongRepository(entityManager);
-        AlbumRepository albumRepository = new AlbumRepository(entityManager);
-        Song song = new Song();
-        Album album = new Album();
-        song.setSongName("Все это Рок-н-ролл");
-        songRepository.add(song);
+        addSimpleSong("Все это Рок-н-ролл");
 
-        song = new Song();
-        song.setSongName("Шабаш");
+        addSimpleSong("Шабаш");
 
-        songRepository.add(song);
+        printAllSongs();
 
-        System.out.println(songRepository.getAll());
+        removeSong("ШаБаШ");
+        printAllSongs();
 
-        //remove
-        long songId = songRepository.getIdByName("ШаБаШ");
-        song = songRepository.getById(songId);
+        updateSong("Все это Рок-Н-РОЛл", "All it's Rock-N-Roll");
+        printAllSongs();
+
+        addAlbum("Группа крови - Кино", new Song("Группа Крови"));
+        printAllSongs();
+    }
+
+    static void updateSong(String oldSongName, String newSongName) {
+        long songId = songRepository.getIdByName(oldSongName);
+        Song song = songRepository.getById(songId);
+        songRepository.update(song, newSongName);
+    }
+
+    static void removeSong(String songName) {
+        long songId = songRepository.getIdByName(songName);
+        Song song = songRepository.getById(songId);
         songRepository.remove(song);
-        System.out.println(songRepository.getAll());
+    }
 
-        //update
-        songId = songRepository.getIdByName("Все это Рок-Н-РОЛл");
-        song = songRepository.getById(songId);
-        songRepository.update(song, "All it's Rock-N-Roll");
-        System.out.println(songRepository.getAll());
+    static void addSimpleSong(String songName) {
+        Song song = new Song();
+        song.setSongName(songName);
+        songRepository.add(song);
+    }
 
-        song = new Song();
-        song.setSongName("Группа Крови");
-        album.setAlbumName("Группа крови - Кино");
-        album.setSongs(Stream.of(song).collect(Collectors.toSet()));
+    static void addAlbum(String albumName, Song... songs) {
+        Album album = new Album();
+        album.setAlbumName(albumName);
+
+        Set<Song> albumSet = new HashSet();
+
+        Collections.addAll(albumSet, songs);
+
+        album.setSongs(albumSet);
         albumRepository.add(album);
+    }
 
+    static void printAllSongs() {
+        System.out.println(songRepository.getAll());
     }
 }

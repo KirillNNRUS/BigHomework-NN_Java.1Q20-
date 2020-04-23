@@ -15,6 +15,10 @@ public class Album {
     public Album() {
     }
 
+    public Album(String albumName) {
+        this.albumName = albumName.toUpperCase();
+    }
+
     @Id
     @Column()
     @GeneratedValue(strategy = GenerationType.IDENTITY)

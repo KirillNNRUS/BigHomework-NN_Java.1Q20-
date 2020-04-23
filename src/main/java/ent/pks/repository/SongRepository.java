@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 public class SongRepository implements SongDAO {
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     public SongRepository(EntityManager entityManager) {
         this.entityManager = entityManager;

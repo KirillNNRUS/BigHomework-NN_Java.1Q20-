@@ -11,8 +11,11 @@ import java.util.Objects;
         @NamedQuery(name = "Song.getIdByName", query = "SELECT s FROM Song s WHERE s.songName = :name"),
 })
 public class Song {
-
     public Song() {
+    }
+
+    public Song(String songName) {
+        this.songName = songName.toUpperCase();
     }
 
     @Id

@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 public class AlbumRepository implements AlbumDAO {
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     public AlbumRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
@@ -22,24 +22,35 @@ public class AlbumRepository implements AlbumDAO {
 
     @Override
     public List<Album> getAll() {
-        return null;
+        return entityManager.createNamedQuery("Album.All", Album.class).getResultList();
     }
 
     @Override
     public Album getById(Long id) {
-        return null;
+        return entityManager.createNamedQuery("Album.getById", Album.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
     @Override
     public long getIdByName(String name) {
-        return 0;
+        return entityManager.createNamedQuery("Album.getIdByName", Album.class)
+                .setParameter("name", name.toUpperCase())
+                .getSingleResult().getId();
     }
 
     @Override
     public void update(Album album, String newAlbumName) {
+        entityManager.getTransaction().begin();
+        album.setAlbumName(newAlbumName);
+        entityManager.merge(album);
+        entityManager.getTransaction().commit();
     }
 
     @Override
     public void remove(Album album) {
+        entityManager.getTransaction().begin();
+        entityManager.remove(album);
+        entityManager.getTransaction().commit();
     }
 }
