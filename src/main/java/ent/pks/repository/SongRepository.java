@@ -39,11 +39,6 @@ public class SongRepository implements SongDAO {
                 .getSingleResult().getId();
     }
 
-    public long getAlbumIDFromSongId(long songId) {
-        entityManager.createNativeQuery("SELECT * FROM ALBUM_SONG as2 WHERE SONGS_ID = ?1").setParameter(1, songId).getSingleResult();
-        return 0;
-    }
-
     @Override
     public void update(Song song, String newSongName) {
         entityManager.getTransaction().begin();

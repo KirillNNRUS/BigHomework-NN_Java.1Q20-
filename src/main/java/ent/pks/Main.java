@@ -87,7 +87,6 @@ public class Main {
         printAlbumNames();
         System.out.println("!!!!!");
         removeSong("МАМА, МЫ ВСЕ ТЯЖЕЛО БОЛЬНЫ");
-        songRepository.getAlbumIDFromSongId(songRepository.getIdByName("МАМА, МЫ ВСЕ ТЯЖЕЛО БОЛЬНЫ"));
     }
 
     static void removeAlbum(String albumName) {
