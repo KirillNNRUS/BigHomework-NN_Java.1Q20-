@@ -34,9 +34,10 @@ public class Main {
         updateSong("Все это Рок-Н-РОЛл", "All it's Rock-N-Roll");
         printAllSongs();
 
-        addAlbum("Группа крови - Кино", new Song("Группа Крови - 1988"));
+        addAlbum("Кино - Группа крови", new Song("Группа Крови - 1988"));
         printAllSongs();
-        addAlbum("Шабаш - Алиса",
+
+        addAlbum("Алиса - Шабаш",
                 new Song("Шабаш"),
                 new Song("                 Жар Бог Шуга "),
                 new Song("Бес Паники"),
@@ -67,17 +68,37 @@ public class Main {
                 new Song("Спокойная ночь ")
         );
         printAllSongs();
+        printAlbumNames();
+
+        removeAlbum("Кино - Последний герой");
+        printAlbumNames();
+
+        addAlbum("Кино - Последний герой",
+                new Song("Хочу перемен! "),
+                new Song("Электричка"),
+                new Song("Война"),
+                new Song("Троллейбус"),
+                new Song("              Последний герой"),
+                new Song("Группа крови"),
+                new Song("Мама, мы все тяжело больны"),
+                new Song("В наших глазах"),
+                new Song("Спокойная ночь ")
+        );
+        printAlbumNames();
+    }
+
+    static void removeAlbum(String albumName) {
+        Album album = albumRepository.getById(albumRepository.getIdByName(albumName));
+        albumRepository.remove(album);
     }
 
     static void updateSong(String oldSongName, String newSongName) {
-        long songId = songRepository.getIdByName(oldSongName);
-        Song song = songRepository.getById(songId);
+        Song song = songRepository.getById(songRepository.getIdByName(oldSongName));
         songRepository.update(song, newSongName);
     }
 
     static void removeSong(String songName) {
-        long songId = songRepository.getIdByName(songName);
-        Song song = songRepository.getById(songId);
+        Song song = songRepository.getById(songRepository.getIdByName(songName));
         songRepository.remove(song);
     }
 
@@ -101,5 +122,9 @@ public class Main {
 
     static void printAllSongs() {
         System.out.println(songRepository.getAll());
+    }
+
+    static void printAlbumNames() {
+        System.out.println(albumRepository.getAll());
     }
 }
