@@ -2,21 +2,31 @@ package ent.pks;
 
 import ent.pks.entity.Album;
 import ent.pks.entity.Song;
+import ent.pks.entity.User;
 import ent.pks.repository.AlbumRepository;
 import ent.pks.repository.SongRepository;
+import ent.pks.repository.UserRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class Main {
+    /*
+    Тут создается БД + первоначально заполняется
+    потом менять на <property name="hibernate.hbm2ddl.auto" value="validate"/>
+     */
     static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("musicStore");
     static EntityManager entityManager = entityManagerFactory.createEntityManager();
     static SongRepository songRepository = new SongRepository(entityManager);
     static AlbumRepository albumRepository = new AlbumRepository(entityManager);
+    static UserRepository userRepository = new UserRepository(entityManager);
 
     public static void main(String[] args) {
-        Song song;
+        /*
+        Все пока пихаю в Main, но догадываюсь, что наверное нужно сделать класс-сервис именно для работы с Repository
+        Подскажите, я правильно думаю... В Архитектуре, я, как и все новички, не очень...
+         */
         Album album;
 
         addSong("Все это Рок-н-ролл");
@@ -74,6 +84,43 @@ public class Main {
         printAlbumNames();
 
         removeSong("Спокойная ночь");
+
+        addUser("Kirill", "K!r!ll");
+        printAllUsers();
+        updateUserPassword("Kirilllllllll", "Pas$word");
+        printAllUsers();
+        updateUserPassword("Kirill", "Pas$word");
+        printAllUsers();
+
+        User user = userRepository.getByUserName("KiriLL");
+        Song song = songRepository.getById(songRepository.getIdByName("Все Это Рок-Н-Ролл"));
+        Song song1 = songRepository.getById(songRepository.getIdByName(" В наших глазах"));
+        Song song2 = songRepository.getById(songRepository.getIdByName("Электричка"));
+        Song song3 = songRepository.getById(songRepository.getIdByName("Шабаш"));
+        userRepository.addSongToUserSet(user, song, song1, song2, song3);
+
+        //Тут раскоментировать и удалим одну песню
+//        User user55 = userRepository.getByUserName("KiriLL");
+//        Song song55 = songRepository.getById(songRepository.getIdByName("Электричка"));
+//        userRepository.removeSongFromUserSet(user55, song55);
+        entityManager.close();
+        entityManagerFactory.close();
+    }
+
+    static void updateUserPassword(String userName, String newPassword) {
+        if (userRepository.getByUserName(userName) == null) {
+            return;
+        } else {
+            User user = userRepository.getByUserName(userName);
+            userRepository.updatePassword(user, newPassword);
+        }
+    }
+
+    static void addUser(String userName, String password) {
+        User user = new User();
+        user.setUserName(userName);
+        user.setPassword(password);
+        userRepository.add(user);
     }
 
     static void addAlbum(String albumName) {
@@ -129,5 +176,9 @@ public class Main {
 
     static void printAlbumNames() {
         System.out.println(albumRepository.getAll());
+    }
+
+    static void printAllUsers() {
+        System.out.println(userRepository.getAll());
     }
 }

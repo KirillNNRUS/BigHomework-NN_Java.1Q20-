@@ -1,11 +1,15 @@
 package ent.pks.repository;
 
 import ent.pks.dao.UserDAO;
+import ent.pks.entity.Song;
 import ent.pks.entity.User;
 
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
+import javax.persistence.NoResultException;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class UserRepository implements UserDAO {
     private final EntityManager entityManager;
@@ -23,25 +27,66 @@ public class UserRepository implements UserDAO {
 
     @Override
     public List<User> getAll() {
-        List<User> userList = new ArrayList<>();
-        return null;
+        return entityManager.createNamedQuery("User.All", User.class).getResultList();
     }
 
     @Override
-    public User getByUserName(Long id) {
-        return null;
+    public User getByUserName(String userName) {
+        User user = null;
+        try {
+            user = entityManager.createNamedQuery("User.Name", User.class)
+                    .setParameter("userName", userName.trim().toUpperCase())
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            System.err.println(e.toString() + " User " + userName);
+        }
+        return user;
     }
 
     @Override
-    public boolean isUserExist(String name) {
-        return false;
-    }
-
-    @Override
-    public void update(User user, String newPassword) {
+    public void updatePassword(User user, String newPassword) {
+        entityManager.getTransaction().begin();
+        user.setPassword(newPassword);
+        entityManager.persist(user);
+        entityManager.getTransaction().commit();
     }
 
     @Override
     public void remove(User user) {
+        //Вот тут я хочу, без удаления пользователя, сделать ему isLocked = true,
+        //но, пока не догадался как... Использовать чистое JDBC?? Помогите пож-та
+    }
+
+    @Override
+    public void addSongToUserSet(User user, Song... songs) {
+        Set<Song> songSet;
+
+        if (user.getSongs() == null) {
+            songSet = new HashSet<>();
+        } else {
+            songSet = user.getSongs();
+        }
+
+        Collections.addAll(songSet, songs);
+
+        entityManager.getTransaction().begin();
+        user.setSongs(songSet);
+        entityManager.persist(user);
+        entityManager.getTransaction().commit();
+
+    }
+
+    @Override
+    public void removeSongFromUserSet(User user, Song... songs) {
+        Set<Song> songSet = user.getSongs();
+
+        for (Song song : songs) {
+            songSet.remove(song);
+        }
+
+        entityManager.getTransaction().begin();
+        user.setSongs(songSet);
+        entityManager.persist(user);
+        entityManager.getTransaction().commit();
     }
 }

@@ -1,5 +1,6 @@
 package ent.pks.dao;
 
+import ent.pks.entity.Song;
 import ent.pks.entity.User;
 
 import java.util.List;
@@ -9,11 +10,13 @@ public interface UserDAO {
 
     List<User> getAll();
 
-    User getByUserName(Long id);
+    User getByUserName(String userName);
 
-    boolean isUserExist(String name);
-
-    void update(User user, String newUserPassword);
+    void updatePassword(User user, String newUserPassword);
 
     void remove(User user);
+
+    void addSongToUserSet(User user, Song... songs);
+
+    void removeSongFromUserSet(User user, Song... songs);
 }

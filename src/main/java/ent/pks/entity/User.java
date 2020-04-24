@@ -8,11 +8,12 @@ import java.util.Set;
 @Table()
 @NamedQueries({
         @NamedQuery(name = "User.All", query = "SELECT u FROM User u"),
-        @NamedQuery(name = "User.Name", query = "SELECT u FROM User u WHERE u.userName = : username"),
+        @NamedQuery(name = "User.Name", query = "SELECT u FROM User u WHERE u.userName = : userName"),
 })
 public class User {
     public User() {
         this.isLocked = false;
+
     }
 
     @Id
@@ -47,7 +48,7 @@ public class User {
     }
 
     public void setUserName(String userName) {
-        this.userName = userName.toUpperCase();
+        this.userName = userName.trim().toUpperCase();
     }
 
     public String getPassword() {
