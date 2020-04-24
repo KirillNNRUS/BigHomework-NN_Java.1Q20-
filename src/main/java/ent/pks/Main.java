@@ -13,8 +13,7 @@ import javax.persistence.Persistence;
 
 public class Main {
     /*
-    Тут создается БД + первоначально заполняется
-    потом менять на <property name="hibernate.hbm2ddl.auto" value="validate"/>
+    Тут создается БД + заполняется
      */
     static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("musicStore");
     static EntityManager entityManager = entityManagerFactory.createEntityManager();
