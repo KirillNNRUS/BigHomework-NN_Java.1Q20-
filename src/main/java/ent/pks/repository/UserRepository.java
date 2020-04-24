@@ -3,13 +3,22 @@ package ent.pks.repository;
 import ent.pks.dao.UserDAO;
 import ent.pks.entity.User;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepository implements UserDAO {
+    private final EntityManager entityManager;
+
+    public UserRepository(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     @Override
     public void add(User user) {
+        entityManager.getTransaction().begin();
+        entityManager.persist(user);
+        entityManager.getTransaction().commit();
     }
 
     @Override

@@ -6,16 +6,41 @@ import java.util.Set;
 
 @Entity
 @Table()
+@NamedQueries({
+        @NamedQuery(name = "User.All", query = "SELECT u FROM User u"),
+        @NamedQuery(name = "User.Name", query = "SELECT u FROM User u WHERE u.userName = : username"),
+})
 public class User {
     public User() {
+        this.isLocked = false;
     }
 
     @Id
     @Column(nullable = false, unique = true)
     private String userName;
 
-    @Column(nullable = false)
+    @Column()
     private String password;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Song> songs;
+
+    @Column(nullable = false)
+    private boolean isLocked;
+
+    //Делаю только геттер, т.к. лочить пользователя буду в другом месте. Планирую смотреть, можно входить
+    //на "сайт" ( который потом будет :-) ) или нет.
+    public boolean isLocked() {
+        return isLocked;
+    }
+
+    public Set<Song> getSongs() {
+        return songs;
+    }
+
+    public void setSongs(Set<Song> songs) {
+        this.songs = songs;
+    }
 
     public String getUserName() {
         return userName;
@@ -38,6 +63,7 @@ public class User {
         return "User{" +
                 "userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
+                ", isLocked=" + isLocked +
                 '}';
     }
 
@@ -46,12 +72,14 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return userName.equals(user.userName) &&
-                password.equals(user.password);
+        return isLocked == user.isLocked &&
+                userName.equals(user.userName) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(songs, user.songs);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userName, password);
+        return Objects.hash(userName, password, songs, isLocked);
     }
 }
