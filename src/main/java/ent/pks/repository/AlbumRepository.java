@@ -4,6 +4,7 @@ import ent.pks.dao.AlbumDAO;
 import ent.pks.entity.Album;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.util.List;
 
 public class AlbumRepository implements AlbumDAO {
@@ -27,16 +28,33 @@ public class AlbumRepository implements AlbumDAO {
 
     @Override
     public Album getById(Long id) {
-        return entityManager.createNamedQuery("Album.getById", Album.class)
-                .setParameter("id", id)
-                .getSingleResult();
+        Album album = null;
+        try {
+            album = entityManager.createNamedQuery("Album.getById", Album.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            System.err.println(e.toString() + " Album ID " + id);
+        }
+        return album;
+    }
+
+    @Override
+    public boolean isAlbumExist(String name) {
+        return getIdByName(name) != 0;
     }
 
     @Override
     public long getIdByName(String name) {
-        return entityManager.createNamedQuery("Album.getIdByName", Album.class)
-                .setParameter("name", name.trim().toUpperCase())
-                .getSingleResult().getId();
+        long albumId = 0;
+        try {
+            albumId = entityManager.createNamedQuery("Album.getIdByName", Album.class)
+                    .setParameter("name", name.trim().toUpperCase())
+                    .getSingleResult().getId();
+        } catch (NoResultException e) {
+            System.err.println(e.toString() + " Album " + name);
+        }
+        return albumId;
     }
 
     @Override

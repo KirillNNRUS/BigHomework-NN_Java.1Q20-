@@ -24,6 +24,11 @@ public class UserRepository implements UserDAO {
     }
 
     @Override
+    public boolean isUserExist(String name) {
+        return false;
+    }
+
+    @Override
     public void update(User user, String newPassword) {
     }
 

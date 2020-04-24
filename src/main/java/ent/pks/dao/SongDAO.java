@@ -11,6 +11,8 @@ public interface SongDAO {
 
     Song getById(Long id);
 
+    boolean isSongExist(String name);
+
     long getIdByName(String name);
 
     void update(Song song, String newSongName);

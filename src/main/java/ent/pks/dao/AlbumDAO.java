@@ -11,6 +11,8 @@ public interface AlbumDAO {
 
     Album getById(Long id);
 
+    boolean isAlbumExist(String name);
+
     long getIdByName(String name);
 
     void update(Album album, String newAlbumName);
