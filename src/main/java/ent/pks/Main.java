@@ -50,10 +50,6 @@ public class Main {
         addSong("    Новая Кровь ", album);
         addSong("  Все В Наших руках ", album);
 
-        long i = albumRepository.getIdByName("Кино - Последний герой");
-
-        album = albumRepository.getById(30L);
-
         printAllSongs();
 
         album = new Album();
@@ -76,6 +72,8 @@ public class Main {
         //WTF
         removeAlbum("Киркоров - Ой, мама, шика дам!");
         printAlbumNames();
+
+        removeSong("Спокойная ночь");
     }
 
     static void addAlbum(String albumName) {
