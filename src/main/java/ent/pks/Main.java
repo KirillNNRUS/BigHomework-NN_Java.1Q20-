@@ -13,7 +13,9 @@ import javax.persistence.Persistence;
 
 public class Main {
     /*
-    Тут создается БД + заполняется
+    Тут создается БД + заполняется. Если хотите можете поменять на свою БД.
+    Но, я использую H2, и, вроде указал корректно путь, jdbc:h2:./musicStore, и она должна создаться
+     в папке проекта, так что можно оставить все как есть.
      */
     static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("musicStore");
     static EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -25,6 +27,7 @@ public class Main {
         /*
         Все пока пихаю в Main, но догадываюсь, что наверное нужно сделать класс-сервис именно для работы с Repository
         Подскажите, я правильно думаю... В Архитектуре, я, как и все новички, не очень...
+        Тут я создаю, удаляю и меняю сущности.
          */
         Album album;
 
