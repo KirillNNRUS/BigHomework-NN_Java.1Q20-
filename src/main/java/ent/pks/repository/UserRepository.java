@@ -53,8 +53,20 @@ public class UserRepository implements UserDAO {
 
     @Override
     public void remove(User user) {
-        //Вот тут я хочу, без удаления пользователя, сделать ему isLocked = true,
-        //но, пока не догадался как... Использовать чистое JDBC?? Помогите пож-та
+        //По факту только выставляет пользователю isLocked = true.
+        //Пользователя из БД не удаляем.
+        entityManager.getTransaction().begin();
+        user.setLocked(true);
+        entityManager.persist(user);
+        entityManager.getTransaction().commit();
+    }
+
+    @Override
+    public void restore(User user) {
+        entityManager.getTransaction().begin();
+        user.setLocked(false);
+        entityManager.persist(user);
+        entityManager.getTransaction().commit();
     }
 
     @Override

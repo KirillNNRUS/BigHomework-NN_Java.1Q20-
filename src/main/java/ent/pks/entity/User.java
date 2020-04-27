@@ -29,8 +29,12 @@ public class User {
     @Column(nullable = false)
     private boolean isLocked;
 
-    //Делаю только геттер, т.к. лочить пользователя буду в другом месте. Планирую смотреть, можно входить
-    //на "сайт" ( который потом будет :-) ) или нет.
+    //Планирую смотреть, можно входить на "сайт" ( который потом будет :-) ) или нет.
+
+    public void setLocked(boolean locked) {
+        isLocked = locked;
+    }
+
     public boolean isLocked() {
         return isLocked;
     }

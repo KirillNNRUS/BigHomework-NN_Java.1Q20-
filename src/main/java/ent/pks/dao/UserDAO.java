@@ -16,6 +16,8 @@ public interface UserDAO {
 
     void remove(User user);
 
+    void restore(User user);
+
     void addSongToUserSet(User user, Song... songs);
 
     void removeSongFromUserSet(User user, Song... songs);

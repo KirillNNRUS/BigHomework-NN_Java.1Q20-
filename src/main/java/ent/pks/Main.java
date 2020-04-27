@@ -102,8 +102,33 @@ public class Main {
 //        User user55 = userRepository.getByUserName("KiriLL");
 //        Song song55 = songRepository.getById(songRepository.getIdByName("Электричка"));
 //        userRepository.removeSongFromUserSet(user55, song55);
+
+        addUser("TempUser", "temp");
+        removeUser("TempUser");
+        //Тут раскоментировать и восстановим пользователя
+//        restoreUser("TempUser");
+
+
         entityManager.close();
         entityManagerFactory.close();
+    }
+
+    static void restoreUser(String userName) {
+        if (userRepository.getByUserName(userName) == null) {
+            return;
+        } else {
+            User user = userRepository.getByUserName(userName);
+            userRepository.restore(user);
+        }
+    }
+
+    static void removeUser(String userName) {
+        if (userRepository.getByUserName(userName) == null) {
+            return;
+        } else {
+            User user = userRepository.getByUserName(userName);
+            userRepository.remove(user);
+        }
     }
 
     static void updateUserPassword(String userName, String newPassword) {
