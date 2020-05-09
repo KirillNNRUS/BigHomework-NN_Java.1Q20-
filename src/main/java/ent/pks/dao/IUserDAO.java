@@ -5,7 +5,7 @@ import ent.pks.entity.User;
 
 import java.util.List;
 
-public interface UserDAO {
+public interface IUserDAO {
     void add(User user);
 
     List<User> getAll();

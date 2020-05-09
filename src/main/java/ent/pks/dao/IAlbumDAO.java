@@ -4,7 +4,7 @@ import ent.pks.entity.Album;
 
 import java.util.List;
 
-public interface AlbumDAO {
+public interface IAlbumDAO {
     void add(Album album);
 
     List<Album> getAll();

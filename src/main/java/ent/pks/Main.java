@@ -3,9 +3,9 @@ package ent.pks;
 import ent.pks.entity.Album;
 import ent.pks.entity.Song;
 import ent.pks.entity.User;
-import ent.pks.repository.AlbumRepository;
-import ent.pks.repository.SongRepository;
-import ent.pks.repository.UserRepository;
+import ent.pks.dao.AlbumDAOImpl;
+import ent.pks.dao.SongDAOImpl;
+import ent.pks.dao.UserDAOImpl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,9 +19,9 @@ public class Main {
      */
     static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("musicStore");
     static EntityManager entityManager = entityManagerFactory.createEntityManager();
-    static SongRepository songRepository = new SongRepository(entityManager);
-    static AlbumRepository albumRepository = new AlbumRepository(entityManager);
-    static UserRepository userRepository = new UserRepository(entityManager);
+    static SongDAOImpl songRepository = new SongDAOImpl(entityManager);
+    static AlbumDAOImpl albumRepository = new AlbumDAOImpl(entityManager);
+    static UserDAOImpl userRepository = new UserDAOImpl(entityManager);
 
     public static void main(String[] args) {
         /*

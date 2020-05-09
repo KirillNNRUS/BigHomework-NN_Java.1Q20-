@@ -1,16 +1,15 @@
-package ent.pks.repository;
+package ent.pks.dao;
 
-import ent.pks.dao.AlbumDAO;
 import ent.pks.entity.Album;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.util.List;
 
-public class AlbumRepository implements AlbumDAO {
+public class AlbumDAOImpl implements IAlbumDAO {
     private final EntityManager entityManager;
 
-    public AlbumRepository(EntityManager entityManager) {
+    public AlbumDAOImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 

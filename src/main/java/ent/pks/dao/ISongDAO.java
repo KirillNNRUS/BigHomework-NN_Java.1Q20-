@@ -4,7 +4,7 @@ import ent.pks.entity.Song;
 
 import java.util.List;
 
-public interface SongDAO {
+public interface ISongDAO {
     void add(Song song);
 
     List<Song> getAll();

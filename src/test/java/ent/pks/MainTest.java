@@ -2,8 +2,8 @@ package ent.pks;
 
 import ent.pks.entity.Song;
 import ent.pks.entity.User;
-import ent.pks.repository.SongRepository;
-import ent.pks.repository.UserRepository;
+import ent.pks.dao.SongDAOImpl;
+import ent.pks.dao.UserDAOImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +16,7 @@ public class MainTest {
     void createUser() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("musicStore");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        UserRepository userRepository = new UserRepository(entityManager);
+        UserDAOImpl userRepository = new UserDAOImpl(entityManager);
         User user = new User();
         user.setUserName("TestUser");
         userRepository.add(user);
@@ -27,7 +27,7 @@ public class MainTest {
 
 
         entityManager = entityManagerFactory.createEntityManager();
-        userRepository = new UserRepository(entityManager);
+        userRepository = new UserDAOImpl(entityManager);
         User user1 = userRepository.getByUserName("TestUser");
         Assertions.assertEquals("TESTUSER", user1.getUserName());
         //Вот тут нужно удалить пользователя
@@ -37,7 +37,7 @@ public class MainTest {
     void createSong() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("musicStore");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        SongRepository songRepository = new SongRepository(entityManager);
+        SongDAOImpl songRepository = new SongDAOImpl(entityManager);
         Song song = new Song();
         song.setSongName("TestSong");
         songRepository.add(song);
@@ -48,7 +48,7 @@ public class MainTest {
 
 
         entityManager = entityManagerFactory.createEntityManager();
-        songRepository = new SongRepository(entityManager);
+        songRepository = new SongDAOImpl(entityManager);
         Song song1 = songRepository.getById(songRepository.getIdByName("TestSong"));
         Assertions.assertEquals("TESTSONG", song1.getSongName());
     }

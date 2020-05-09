@@ -1,6 +1,5 @@
-package ent.pks.repository;
+package ent.pks.dao;
 
-import ent.pks.dao.UserDAO;
 import ent.pks.entity.Song;
 import ent.pks.entity.User;
 
@@ -11,10 +10,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class UserRepository implements UserDAO {
+public class UserDAOImpl implements IUserDAO {
     private final EntityManager entityManager;
 
-    public UserRepository(EntityManager entityManager) {
+    public UserDAOImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 

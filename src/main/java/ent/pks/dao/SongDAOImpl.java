@@ -1,16 +1,15 @@
-package ent.pks.repository;
+package ent.pks.dao;
 
-import ent.pks.dao.SongDAO;
 import ent.pks.entity.Song;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.util.List;
 
-public class SongRepository implements SongDAO {
+public class SongDAOImpl implements ISongDAO {
     private final EntityManager entityManager;
 
-    public SongRepository(EntityManager entityManager) {
+    public SongDAOImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
