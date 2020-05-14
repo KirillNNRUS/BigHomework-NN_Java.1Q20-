@@ -1,11 +1,14 @@
 package ent.pks.dao;
 
 import ent.pks.entity.Album;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.util.List;
 
+@Component
 public class AlbumDAOImpl implements IAlbumDAO {
     private final EntityManager entityManager;
 
